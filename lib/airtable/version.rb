@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Version
 module Airtable
-  VERSION = "0.1.1"
+  VERSION = '0.2.0'
 end
