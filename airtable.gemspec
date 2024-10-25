@@ -5,7 +5,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'airtable/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'airtable2'
+  spec.name          = 'airtable'
   spec.version       = Airtable::VERSION
   spec.authors       = ['Andrew Seroff', 'Nathan Esquenazi', 'Alexander Sorokin']
   spec.email         = ['andy@seroff.co']
