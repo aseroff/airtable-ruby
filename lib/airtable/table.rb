@@ -2,6 +2,8 @@
 
 # Object corresponding to an Airtable Table
 class Airtable::Table < Airtable::Resource
+  attr_reader :name
+
   def initialize(token, base_id, api_response)
     @token = token
     @base_id = base_id

@@ -2,6 +2,8 @@
 
 # Object corresponding to an Airtable Record
 class Airtable::Record < Airtable::Resource
+  attr_reader :fields
+
   def initialize(token, base_id, table_id, api_response)
     @token = token
     @base_id = base_id
