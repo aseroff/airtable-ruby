@@ -41,13 +41,19 @@ and its tables
 @tables = @base.tables
 ```
 
-and create a new table
+and a table's records, so you can navigate the has_many chain the way God intended:
+
+```ruby
+@client.bases.first.tables.first.records.first
+```
+
+### Manipulating Tables
+
+Create a new table with:
 
 ```ruby
 @table = @base.create_table({ name: 'Names', description: 'A list of names', fields: [{ name: 'name', type: 'singleLineText' }] })
 ```
-
-### Manipulating Tables
 
 You can update at a table's metadata with the `update` method:
 

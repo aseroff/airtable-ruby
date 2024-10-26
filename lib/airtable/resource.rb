@@ -13,6 +13,7 @@ class Airtable::Resource
     self.class.headers({ 'Authorization': "Bearer #{@token}", 'Content-Type': 'application/json' })
   end
 
+  # If API response is an error, raises an Airtable::Error with the error message
   def check_and_raise_error(response)
     response['error'] ? raise(Error, response['error']) : false
   end

@@ -31,5 +31,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-minitest'
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'webmock'
+  spec.add_development_dependency 'yard'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end

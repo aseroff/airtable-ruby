@@ -1,0 +1,5 @@
+-o docs 
+-r README.md 
+-q
+--protected 
+--private 

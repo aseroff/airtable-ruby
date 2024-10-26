@@ -9,6 +9,8 @@ class Airtable::Base < Airtable::Resource
   end
 
   # Expects {name:,description:,fields:[]}
+  # @see https://airtable.com/developers/web/api/create-table
+  # @return [Airtable::Table]
   def create_table(table_data)
     response = self.class.post("#{base_url}/tables",
                                body: table_data.to_json).parsed_response
@@ -18,6 +20,8 @@ class Airtable::Base < Airtable::Resource
     Airtable::Table.new @token, @id, response
   end
 
+  # @see https://airtable.com/developers/web/api/get-base-schema
+  # @return [Array]<Airtable::Table>
   def tables
     response = self.class.get("#{base_url}/tables")
 
@@ -26,7 +30,14 @@ class Airtable::Base < Airtable::Resource
     response['tables'].map { Airtable::Table.new(@token, @id, _1) }
   end
 
+  # Instantiate table in base
+  # @return [Airtable::Table]
+  def table(table_id)
+    Airtable::Table.new(@token, @id, table_id)
+  end
+
   protected
 
+  # Instantiate table in base
   def base_url = "/v0/meta/bases/#{@id}"
 end
