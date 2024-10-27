@@ -73,5 +73,6 @@ class Airtable::Table < Airtable::Resource
 
   protected
 
+  # Endpoint for tables
   def table_url = "/v0/#{@base_id}/#{@id}"
 end

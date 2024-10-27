@@ -38,6 +38,6 @@ class Airtable::Base < Airtable::Resource
 
   protected
 
-  # Instantiate table in base
+  # Endpoint for bases
   def base_url = "/v0/meta/bases/#{@id}"
 end
