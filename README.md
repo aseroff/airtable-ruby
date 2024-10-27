@@ -10,7 +10,7 @@ This is a fork of an abandoned [previous wrapper](https://github.com/nesquena/ai
 
 Add this line to your application's Gemfile:
 
-    gem 'airtable2', github: 'https://github.com/aseroff/airtable-ruby', branch: 'main'
+    gem 'airtable2'
 
 And then execute:
 
