@@ -52,6 +52,7 @@ class Airtable::Table < Airtable::Resource
     response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1) }
   end
 
+  # @note API maximum of 10 records at a time
   # @see https://airtable.com/developers/web/api/delete-multiple-records
   # @return [Array] Deleted record ids
   def delete_records(record_ids)

@@ -92,6 +92,10 @@ Or as a convenience, you can delete all records with the `dump` method
 @table.dump
 ```
 
+## Complete documentation
+
+YARD-generated documentation is hosted on [GitHub Pages](https://aseroff.github.io/airtable-ruby/).
+
 ## Contributing
 
 1. Fork it ( https://github.com/aseroff/airtable-ruby/fork )
