@@ -2,15 +2,24 @@
 
 # Object corresponding to an Airtable Record
 class Airtable::Record < Airtable::Resource
-  attr_reader :fields
-
-  def initialize(token, base_id, table_id, id, api_response = nil)
+  def initialize(token, base_id, table_id, id, data = nil)
     super(token)
     @base_id = base_id
     @table_id = table_id
     @id = id
-    api_response&.each do |key, value|
-      instance_variable_set(:"@#{key}", value)
+    @data = data
+  end
+
+  # Return record data, retrieve if not present
+  # @return [Hash]
+  # @see https://airtable.com/developers/web/api/get-record
+  def data
+    @data ||= begin
+      response = self.class.get(record_url).parsed_response
+
+      check_and_raise_error(response)
+
+      response
     end
   end
 
@@ -31,6 +40,6 @@ class Airtable::Record < Airtable::Resource
 
   protected
 
-  # Endpoint for tables
+  # Endpoint for records
   def record_url = "/v0/#{@base_id}/#{@table_id}/#{@id}"
 end

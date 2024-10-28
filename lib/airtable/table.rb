@@ -4,14 +4,17 @@
 class Airtable::Table < Airtable::Resource
   attr_reader :name
 
-  def initialize(token, base_id, id, api_response = nil)
+  def initialize(token, base_id, id, data = nil)
     super(token)
     @base_id = base_id
     @id = id
-    api_response&.each do |key, value|
-      instance_variable_set(:"@#{key}", value)
-    end
+    @data = data
   end
+
+  # Return table model, retrieve if not present
+  # @return [Hash]
+  # @see https://airtable.com/developers/web/api/get-base-schema
+  def data = @data ||= base.tables.find { _1.id == @id }.data
 
   # Instantiate table's base
   # @return [Airtable::Base]
@@ -20,11 +23,13 @@ class Airtable::Table < Airtable::Resource
   # @return [Array<Airtable::Record>]
   # @see https://airtable.com/developers/web/api/list-records
   def records
-    response = self.class.get(table_url)
+    @records ||= begin
+      response = self.class.get(table_url)
 
-    check_and_raise_error(response)
+      check_and_raise_error(response)
 
-    response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
+      response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
+    end
   end
 
   # Instantiate record in table
