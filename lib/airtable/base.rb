@@ -20,7 +20,7 @@ class Airtable::Base < Airtable::Resource
   end
 
   # @see https://airtable.com/developers/web/api/get-base-schema
-  # @return [Array]<Airtable::Table>
+  # @return [Array<Airtable::Table>]
   def tables
     response = self.class.get("#{base_url}/tables")
 

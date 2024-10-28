@@ -3,7 +3,7 @@
 # Client carrying authorization token
 class Airtable::Client < Airtable::Resource
   # @see https://airtable.com/developers/web/api/list-bases
-  # @return [Array]<Airtable::Base>
+  # @return [Array<Airtable::Base>]
   def bases
     response = self.class.get('/v0/meta/bases').parsed_response
 
@@ -12,13 +12,11 @@ class Airtable::Client < Airtable::Resource
     response['bases'].map { Airtable::Base.new(@token, _1['id']) }
   end
 
-  # @see https://airtable.com/developers/web/api/create-base
-  # def create_base(base_data)
-  #   response = self.class.post('/v0/meta/bases'
-  #                              body: base_data.to_json).parsed_response
-  #   check_and_raise_error(response)
-  #   Airtable::Base.new @token, response
-  # end
+  # Instantiate workspace
+  # @return [Airtable::Workspace]
+  def workspace(workspace_id)
+    Airtable::Workspace.new(@token, workspace_id)
+  end
 
   # Instantiate base
   # @return [Airtable::Base]
