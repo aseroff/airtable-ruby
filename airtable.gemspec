@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Airtable::VERSION
   spec.authors       = ['Andrew Seroff', 'Nathan Esquenazi', 'Alexander Sorokin']
   spec.email         = ['andy@seroff.co']
-  spec.summary       = 'Easily connect to airtable data using ruby'
+  spec.summary       = 'For when Airrecord is just too much.'
   spec.description   = 'Easily connect to airtable data using ruby with access to all of the airtable features.'
   spec.homepage      = 'https://github.com/aseroff/airtable-ruby'
   spec.license       = 'MIT'
@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.required_ruby_version = '>= 3.1'
-  spec.add_dependency 'httparty'
+  spec.add_dependency 'httparty', '>= 0.14.0'
 
   spec.add_development_dependency 'bundler'
   spec.add_development_dependency 'minitest'
@@ -28,7 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-md'
   spec.add_development_dependency 'rubocop-minitest'
   spec.add_development_dependency 'rubocop-performance'
+  spec.add_development_dependency 'rubocop-rake'
   spec.add_development_dependency 'webmock'
-  spec.add_development_dependency 'yard'
   spec.metadata['rubygems_mfa_required'] = 'true'
 end
