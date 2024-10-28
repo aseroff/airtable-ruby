@@ -4,13 +4,18 @@
 class Airtable::Table < Airtable::Resource
   attr_reader :name
 
-  def initialize(token, base_id, api_response)
+  def initialize(token, base_id, id, api_response = nil)
     super(token)
     @base_id = base_id
-    api_response.deep_symbolize_keys.each do |key, value|
+    @id = id
+    api_response&.each do |key, value|
       instance_variable_set(:"@#{key}", value)
     end
   end
+
+  # Instanciate table's base
+  # @return [Airtable::Base]
+  def base = Airtable::Base.new(token, @base_id)
 
   # @see https://airtable.com/developers/web/api/list-records
   # @return [Array<Airtable::Record>]
@@ -19,14 +24,12 @@ class Airtable::Table < Airtable::Resource
 
     check_and_raise_error(response)
 
-    response['records'].map { Airtable::Record.new(@token, @base_id, @table_id, _1) }
+    response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
   end
 
   # Instantiate record in table
-  # @return [Airtable::Table]
-  def record(record_id)
-    Airtable::Table.new(@token, @base_id, @id, record_id)
-  end
+  # @return [Airtable::Record]
+  def record(record_id) = Airtable::Record.new(@token, @base_id, @id, record_id)
 
   # @see https://airtable.com/developers/web/api/update-table
   # @return [Airtable::Table]
@@ -36,7 +39,7 @@ class Airtable::Table < Airtable::Resource
 
     check_and_raise_error(response)
 
-    Airtable::Table.new @token, @base_id, response
+    Airtable::Table.new @token, @base_id, response['id'], response
   end
 
   # @note API maximum of 10 records at a time
