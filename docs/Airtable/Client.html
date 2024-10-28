@@ -159,7 +159,7 @@
         <li class="public ">
   <span class="summary_signature">
     
-      <a href="#bases-instance_method" title="#bases (instance method)">#<strong>bases</strong>  &#x21d2; Array </a>
+      <a href="#bases-instance_method" title="#bases (instance method)">#<strong>bases</strong>  &#x21d2; Array&lt;Airtable::Base&gt; </a>
     
 
     
@@ -173,9 +173,7 @@
   
 
   
-    <span class="summary_desc"><div class='inline'>
-<p>&lt;Airtable::Base&gt;.</p>
-</div></span>
+    <span class="summary_desc"><div class='inline'></div></span>
   
 </li>
 
@@ -197,7 +195,33 @@
   
 
   
-    <span class="summary_desc"><div class='inline'></div></span>
+    <span class="summary_desc"><div class='inline'>
+<p>User’s data based on token.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#workspace-instance_method" title="#workspace (instance method)">#<strong>workspace</strong>(workspace_id)  &#x21d2; Airtable::Workspace </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Instantiate workspace.</p>
+</div></span>
   
 </li>
 
@@ -247,7 +271,27 @@
   </div>
 </div>
 <div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
   
+    <li>
+      
+        <span class='name'>base_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>ID of base</p>
+</div>
+      
+    </li>
+  
+</ul>
+
 <p class="tag_title">Returns:</p>
 <ul class="return">
   
@@ -286,7 +330,7 @@
       <div class="method_details ">
   <h3 class="signature " id="bases-instance_method">
   
-    #<strong>bases</strong>  &#x21d2; <tt>Array</tt> 
+    #<strong>bases</strong>  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Base.html" title="Airtable::Base (class)">Airtable::Base</a></span>&gt;</tt> 
   
 
   
@@ -295,8 +339,6 @@
 </h3><div class="docstring">
   <div class="discussion">
     
-<p>Returns &lt;Airtable::Base&gt;.</p>
-
 
   </div>
 </div>
@@ -308,14 +350,9 @@
     <li>
       
       
-        <span class='type'>(<tt>Array</tt>)</span>
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Base.html" title="Airtable::Base (class)">Airtable::Base</a></span>&gt;</tt>)</span>
       
       
-      
-        &mdash;
-        <div class='inline'>
-<p>&lt;Airtable::Base&gt;</p>
-</div>
       
     </li>
   
@@ -369,6 +406,8 @@
 </h3><div class="docstring">
   <div class="discussion">
     
+<p>Returns User’s data based on token.</p>
+
 
   </div>
 </div>
@@ -383,6 +422,11 @@
         <span class='type'>(<tt>Hash</tt>)</span>
       
       
+      
+        &mdash;
+        <div class='inline'>
+<p>User’s data based on token</p>
+</div>
       
     </li>
   
@@ -424,12 +468,86 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="workspace-instance_method">
+  
+    #<strong>workspace</strong>(workspace_id)  &#x21d2; <tt><span class='object_link'><a href="Workspace.html" title="Airtable::Workspace (class)">Airtable::Workspace</a></span></tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Instantiate workspace</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>workspace_id</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>ID of workspace</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt><span class='object_link'><a href="Workspace.html" title="Airtable::Workspace (class)">Airtable::Workspace</a></span></tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+18
+19
+20</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/airtable/client.rb', line 18</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_workspace'>workspace</span><span class='lparen'>(</span><span class='id identifier rubyid_workspace_id'>workspace_id</span><span class='rparen'>)</span>
+  <span class='const'><span class='object_link'><a href="../Airtable.html" title="Airtable (module)">Airtable</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Workspace.html" title="Airtable::Workspace (class)">Workspace</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Workspace.html#initialize-instance_method" title="Airtable::Workspace#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@token</span><span class='comma'>,</span> <span class='id identifier rubyid_workspace_id'>workspace_id</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Mon Oct 28 08:28:32 2024 by
+  Generated on Mon Oct 28 14:55:27 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.37 (ruby-3.3.5).
 </div>

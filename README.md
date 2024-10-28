@@ -48,6 +48,8 @@ and a table's records, so you can navigate the belongs_to/has_many relationships
 @base = @record.table.base
 ```
 
+Note that objects' child records are memoized to avoid unnecessary API calls. If sensitive to stale data, be sure to use the objects instantiated most recently.
+
 ### Manipulating Tables
 
 Create a new table with:
