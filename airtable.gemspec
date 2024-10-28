@@ -30,5 +30,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency 'rubocop-performance'
   spec.add_development_dependency 'rubocop-rake'
   spec.add_development_dependency 'webmock'
+
   spec.metadata['rubygems_mfa_required'] = 'true'
+  spec.metadata['github_repo'] = 'ssh://github.com/aseroff/airtable-ruby'
 end
