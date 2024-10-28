@@ -71,10 +71,10 @@ Once you have access to a table from above, we can query a set of records in the
 
 ### Inserting Records
 
-A single record or an array of records can be inserted using the `add_records` method on a table (max 10 at a time):
+A single record or an array of records can be inserted using the `create_records` method on a table (max 10 at a time):
 
 ```ruby
-@table.add_records({ 'Name': 'name value', 'Age': 35 })
+@table.create_records({ 'Name': 'name value', 'Age': 35 })
 ```
 
 ### Deleting Records

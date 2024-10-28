@@ -42,7 +42,7 @@ class Airtable::Table < Airtable::Resource
   # @note API maximum of 10 records at a time
   # @see https://airtable.com/developers/web/api/create-records
   # @return [Array<Airtable::Record>]
-  def add_records(records)
+  def create_records(records)
     response = self.class.post(table_url,
                                body: { records: Array(records).map { |fields| { fields: } } }.to_json).parsed_response
 
