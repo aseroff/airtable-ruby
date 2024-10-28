@@ -18,8 +18,8 @@ class Airtable::Record < Airtable::Resource
   # @return [Airtable::Table]
   def table = Airtable::Table.new(token, @base_id, @table_id)
 
-  # @see https://airtable.com/developers/web/api/update-record
   # @return [Airtable::Record]
+  # @see https://airtable.com/developers/web/api/update-record
   def update(record_data)
     response = self.class.patch(record_url,
                                 body: { fields: record_data }.to_json).parsed_response

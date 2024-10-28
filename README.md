@@ -41,10 +41,11 @@ and its tables
 @tables = @base.tables
 ```
 
-and a table's records, so you can navigate the has_many chain the way God intended:
+and a table's records, so you can navigate the belongs_to/has_many relationships the way God intended:
 
 ```ruby
-@client.bases.first.tables.first.records.first
+@record = @client.bases.first.tables.first.records.first
+@base = @record.table.base
 ```
 
 ### Manipulating Tables

@@ -13,12 +13,12 @@ class Airtable::Table < Airtable::Resource
     end
   end
 
-  # Instanciate table's base
+  # Instantiate table's base
   # @return [Airtable::Base]
   def base = Airtable::Base.new(token, @base_id)
 
-  # @see https://airtable.com/developers/web/api/list-records
   # @return [Array<Airtable::Record>]
+  # @see https://airtable.com/developers/web/api/list-records
   def records
     response = self.class.get(table_url)
 
@@ -28,11 +28,12 @@ class Airtable::Table < Airtable::Resource
   end
 
   # Instantiate record in table
+  # @param record_id [String] ID of record
   # @return [Airtable::Record]
   def record(record_id) = Airtable::Record.new(@token, @base_id, @id, record_id)
 
-  # @see https://airtable.com/developers/web/api/update-table
   # @return [Airtable::Table]
+  # @see https://airtable.com/developers/web/api/update-table
   def update(table_data)
     response = self.class.patch("/v0/meta/bases/#{@base_id}/tables/#{@id}",
                                 body: table_data.to_json).parsed_response
@@ -42,9 +43,10 @@ class Airtable::Table < Airtable::Resource
     Airtable::Table.new @token, @base_id, response['id'], response
   end
 
-  # @note API maximum of 10 records at a time
-  # @see https://airtable.com/developers/web/api/create-records
+  # @param [Array] Record objects to create
   # @return [Array<Airtable::Record>]
+  # @see https://airtable.com/developers/web/api/create-records
+  # @note API maximum of 10 records at a time
   def create_records(records)
     response = self.class.post(table_url,
                                body: { records: Array(records).map { |fields| { fields: } } }.to_json).parsed_response
@@ -54,9 +56,10 @@ class Airtable::Table < Airtable::Resource
     response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1) }
   end
 
-  # @note API maximum of 10 records at a time
-  # @see https://airtable.com/developers/web/api/delete-multiple-records
+  # @param [Array] IDs of records to delete
   # @return [Array] Deleted record ids
+  # @see https://airtable.com/developers/web/api/delete-multiple-records
+  # @note API maximum of 10 records at a time
   def delete_records(record_ids)
     params = Array(record_ids).compact.map { "records[]=#{_1}" }.join('&')
     response = self.class.delete("#{table_url}?#{params}").parsed_response

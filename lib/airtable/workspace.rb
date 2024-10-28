@@ -7,6 +7,7 @@ class Airtable::Workspace < Airtable::Resource
     @id = id
   end
 
+  # @param base_data [Hash] Payload for base
   # @see https://airtable.com/developers/web/api/create-base
   def create_base(base_data)
     response = self.class.post('/v0/meta/bases',

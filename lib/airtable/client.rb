@@ -2,8 +2,8 @@
 
 # Client carrying authorization token
 class Airtable::Client < Airtable::Resource
-  # @see https://airtable.com/developers/web/api/list-bases
   # @return [Array<Airtable::Base>]
+  # @see https://airtable.com/developers/web/api/list-bases
   def bases
     response = self.class.get('/v0/meta/bases').parsed_response
 
@@ -13,19 +13,21 @@ class Airtable::Client < Airtable::Resource
   end
 
   # Instantiate workspace
+  # @param workspace_id [String] ID of workspace
   # @return [Airtable::Workspace]
   def workspace(workspace_id)
     Airtable::Workspace.new(@token, workspace_id)
   end
 
   # Instantiate base
+  # @param base_id [String] ID of base
   # @return [Airtable::Base]
   def base(base_id)
     Airtable::Base.new(@token, base_id)
   end
 
+  # @return [Hash] User's data based on token
   # @see https://airtable.com/developers/web/api/get-user-id-scopes
-  # @return [Hash]
   def whoami
     response = self.class.get('/v0/meta/whoami').parsed_response
 
