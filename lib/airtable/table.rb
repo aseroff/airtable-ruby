@@ -58,7 +58,7 @@ class Airtable::Table < Airtable::Resource
 
     check_and_raise_error(response)
 
-    response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1) }
+    response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
   end
 
   # @param [Array] IDs of records to delete
