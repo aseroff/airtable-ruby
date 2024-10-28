@@ -2,11 +2,6 @@
 
 # Client carrying authorization token
 class Airtable::Client < Airtable::Resource
-  def initialize(token)
-    @token = token
-    self.class.headers({ 'Authorization': "Bearer #{@token}", 'Content-Type': 'application/json' })
-  end
-
   # @see https://airtable.com/developers/web/api/list-bases
   # @return [Array]<Airtable::Base>
   def bases

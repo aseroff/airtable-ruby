@@ -5,12 +5,11 @@ class Airtable::Table < Airtable::Resource
   attr_reader :name
 
   def initialize(token, base_id, api_response)
-    @token = token
+    super(token)
     @base_id = base_id
     api_response.deep_symbolize_keys.each do |key, value|
       instance_variable_set(:"@#{key}", value)
     end
-    self.class.headers({ 'Authorization': "Bearer #{@token}", 'Content-Type': 'application/json' })
   end
 
   # @see https://airtable.com/developers/web/api/list-records

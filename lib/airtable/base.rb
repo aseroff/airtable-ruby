@@ -3,9 +3,8 @@
 # Object corresponding to an Airtable Base
 class Airtable::Base < Airtable::Resource
   def initialize(token, id)
-    @token = token
+    super(token)
     @id = id
-    self.class.headers({ 'Authorization': "Bearer #{@token}", 'Content-Type': 'application/json' })
   end
 
   # Expects {name:,description:,fields:[]}
