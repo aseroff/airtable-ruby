@@ -5,6 +5,7 @@ require 'json'
 
 require 'airtable/version'
 require 'airtable/resource'
+require 'airtable/field'
 require 'airtable/record'
 require 'airtable/table'
 require 'airtable/base'

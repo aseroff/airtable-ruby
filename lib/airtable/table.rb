@@ -16,6 +16,17 @@ class Airtable::Table < Airtable::Resource
   # @see https://airtable.com/developers/web/api/get-base-schema
   def data = @data ||= base.tables.find { _1.id == @id }.data
 
+  # @return [Airtable::Field]
+  # @see https://airtable.com/developers/web/api/create-field
+  def create_field(field_data)
+    response = self.class.post("/v0/meta/bases/#{@base.id}/tables/#{@id}/fields",
+                               body: field_data.to_json).parsed_response
+
+    check_and_raise_error(response)
+
+    Airtable::Field.new(@token, self, response['id'], response)
+  end
+
   # @return [Array<Airtable::Record>]
   # @see https://airtable.com/developers/web/api/list-records
   def records
@@ -27,6 +38,9 @@ class Airtable::Table < Airtable::Resource
       response['records'].map { Airtable::Record.new(@token, self, _1['id'], _1) }
     end
   end
+
+  # @return [Array<Airtable::Field>]
+  def fields = @fields ||= data['fields'].map { Airtable::Field.new(@token, self, _1['id'], _1) }
 
   # Instantiate record in table
   # @param record_id [String] ID of record
