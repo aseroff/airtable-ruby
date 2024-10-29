@@ -17,7 +17,7 @@ class Airtable::Base < Airtable::Resource
 
     check_and_raise_error(response)
 
-    Airtable::Table.new @token, @id, response
+    Airtable::Table.new @token, self, response['id'], response
   end
 
   # @return [Array<Airtable::Table>]
