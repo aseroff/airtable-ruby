@@ -27,21 +27,38 @@ First, be sure to register for an [airtable](https://airtable.com) account,  set
 @client = Airtable::Client.new('your.token.goes.here')
 ```
 
-### Accessing Data
+### Simple Usage
+
+#### Reading
 
 Now we can access our base
 
 ```ruby
+# Retrieve with a specific ID
 @base = @client.base('appExAmPlE')
+# or
+@base = @client.bases.first
 ```
 
 and its tables
 
 ```ruby
-@tables = @base.tables
+# Retrieve with a specific ID
+@table = @base.table('tblExAmPle')
+# or
+@table = @base.tables.first
 ```
 
-and a table's records, so you can navigate the belongs_to/has_many relationships the way God intended:
+and a table's records,
+
+```ruby
+# Retrieve with a specific ID
+@record = @table.record('recExAmPle')
+# or
+@record = @table.records.first
+```
+
+so you can navigate the belongs_to/has_many relationships the way God intended:
 
 ```ruby
 @record = @client.bases.first.tables.first.records.first
@@ -50,9 +67,15 @@ and a table's records, so you can navigate the belongs_to/has_many relationships
 
 Note that objects' child records are memoized to avoid unnecessary API calls. If sensitive to stale data, be sure to use the objects instantiated most recently.
 
-### Manipulating Tables
+To get the fields of a table, its simply
 
-Create a new table with:
+```ruby
+@fields = @table.fields
+```
+
+#### Writing
+
+Create a table in a base like so
 
 ```ruby
 @table = @base.create_table({ name: 'Names', description: 'A list of names', fields: [{ name: 'name', type: 'singleLineText' }] })
@@ -64,32 +87,38 @@ You can update at a table's metadata with the `update` method:
 @table.update({ description: 'Updated description' })
 ```
 
-### Querying Records
-
-Once you have access to a table from above, we can query a set of records in the table with:
+You can add a column to a table...
 
 ```ruby
-@records = @table.records
+@field = @table.add_field({'description': 'Whether I have visited this apartment yet.', 'name': 'Visited', 'type': 'checkbox', 'options': { 'color': 'greenBright', 'icon': 'check'} })
 ```
 
-### Inserting Records
+...and update it
+
+```ruby
+@field = @field.update({'description': 'Whether I have rented this apartment yet.', 'name': 'Rented'})
+```
 
 A single record or an array of records can be inserted using the `create_records` method on a table (max 10 at a time):
 
 ```ruby
+# Single
 @table.create_records({ 'Name': 'name value', 'Age': 35 })
+# Array
+@table.create_records([{ 'Name': 'name value', 'Age': 35 }, { 'Name': 'another name value', 'Age': 40 }])
 ```
 
-### Deleting Records
-
-A single record or an array of records can be destroyed by passing their ids to the `delete_records` method on a table:
+A single record or an array of records can be destroyed by passing their ids to the `delete_records` method on a table (max 10 at a time):
 
 ```ruby
-@record = @table.records[0]
-@table.delete_records(@record.id)
+@records = @table.records
+# Single
+@table.delete_records(@records.first.id)
+# Array
+@table.delete_records(@records.map(&:ids))
 ```
 
-Or as a convenience, you can delete all records with the `dump` method
+Or as a convenience, you can delete all records with the `dump` method, which will abide by the API's rate limiting.
 
 ```ruby
 @table.dump
