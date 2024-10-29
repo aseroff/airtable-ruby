@@ -2,10 +2,12 @@
 
 # Object corresponding to an Airtable Record
 class Airtable::Record < Airtable::Resource
-  def initialize(token, base_id, table_id, id, data = nil)
+  attr_reader :table, :base
+
+  def initialize(token, table, id, data = nil)
     super(token)
-    @base_id = base_id
-    @table_id = table_id
+    @table = table
+    @base = @table.base
     @id = id
     @data = data
   end
@@ -23,10 +25,6 @@ class Airtable::Record < Airtable::Resource
     end
   end
 
-  # Instantiate record's table
-  # @return [Airtable::Table]
-  def table = Airtable::Table.new(token, @base_id, @table_id)
-
   # @return [Airtable::Record]
   # @see https://airtable.com/developers/web/api/update-record
   def update(record_data)
@@ -35,11 +33,11 @@ class Airtable::Record < Airtable::Resource
 
     check_and_raise_error(response)
 
-    Airtable::Record.new @token, @base_id, @table_id, response['id'], response
+    Airtable::Record.new @token, @base.id, @table.id, response['id'], response
   end
 
   protected
 
   # Endpoint for records
-  def record_url = "/v0/#{@base_id}/#{@table_id}/#{@id}"
+  def record_url = "/v0/#{@base.id}/#{@table.id}/#{@id}"
 end

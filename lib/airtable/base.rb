@@ -28,7 +28,7 @@ class Airtable::Base < Airtable::Resource
 
       check_and_raise_error(response)
 
-      response['tables'].map { Airtable::Table.new(@token, @id, _1['id'], _1) }
+      response['tables'].map { Airtable::Table.new(@token, self, _1['id'], _1) }
     end
   end
 

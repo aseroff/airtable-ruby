@@ -2,11 +2,11 @@
 
 # Object corresponding to an Airtable Table
 class Airtable::Table < Airtable::Resource
-  attr_reader :name
+  attr_reader :name, :base
 
-  def initialize(token, base_id, id, data = nil)
+  def initialize(token, base, id, data = nil)
     super(token)
-    @base_id = base_id
+    @base = base
     @id = id
     @data = data
   end
@@ -16,10 +16,6 @@ class Airtable::Table < Airtable::Resource
   # @see https://airtable.com/developers/web/api/get-base-schema
   def data = @data ||= base.tables.find { _1.id == @id }.data
 
-  # Instantiate table's base
-  # @return [Airtable::Base]
-  def base = Airtable::Base.new(token, @base_id)
-
   # @return [Array<Airtable::Record>]
   # @see https://airtable.com/developers/web/api/list-records
   def records
@@ -28,24 +24,24 @@ class Airtable::Table < Airtable::Resource
 
       check_and_raise_error(response)
 
-      response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
+      response['records'].map { Airtable::Record.new(@token, self, _1['id'], _1) }
     end
   end
 
   # Instantiate record in table
   # @param record_id [String] ID of record
   # @return [Airtable::Record]
-  def record(record_id) = Airtable::Record.new(@token, @base_id, @id, record_id)
+  def record(record_id) = Airtable::Record.new(@token, @base.id, @id, record_id)
 
   # @return [Airtable::Table]
   # @see https://airtable.com/developers/web/api/update-table
   def update(table_data)
-    response = self.class.patch("/v0/meta/bases/#{@base_id}/tables/#{@id}",
+    response = self.class.patch("/v0/meta/bases/#{@base.id}/tables/#{@id}",
                                 body: table_data.to_json).parsed_response
 
     check_and_raise_error(response)
 
-    Airtable::Table.new @token, @base_id, response['id'], response
+    Airtable::Table.new @token, @base.id, response['id'], response
   end
 
   # @param [Array] Record objects to create
@@ -58,7 +54,7 @@ class Airtable::Table < Airtable::Resource
 
     check_and_raise_error(response)
 
-    response['records'].map { Airtable::Record.new(@token, @base_id, @id, _1['id'], _1) }
+    response['records'].map { Airtable::Record.new(@token, @base.id, @id, _1['id'], _1) }
   end
 
   # @param [Array] IDs of records to delete
@@ -75,15 +71,18 @@ class Airtable::Table < Airtable::Resource
   end
 
   # Deletes all table's records
+  # @return [Integer] Number of deleted records
   def dump
-    records.map(&:id).each_slice(10) do |record_id_set|
+    ids = records.map(&:id)
+    ids.each_slice(10) do |record_id_set|
       delete_records(record_id_set)
       sleep(0.2)
     end
+    ids.size
   end
 
   protected
 
   # Endpoint for tables
-  def table_url = "/v0/#{@base_id}/#{@id}"
+  def table_url = "/v0/#{@base.id}/#{@id}"
 end
