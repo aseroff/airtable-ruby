@@ -108,6 +108,14 @@ A single record or an array of records can be inserted using the `create_records
 @table.create_records([{ 'Name': 'name value', 'Age': 35 }, { 'Name': 'another name value', 'Age': 40 }])
 ```
 
+You can upsert records by calling `upsert_records` and providing the field names to match to (also max 10 at a time):
+
+```ruby
+# Array
+records_to_upsert = [{ 'Name': 'name value', 'Age': 35 }, { 'Name': 'another name value', 'Age': 40 }]
+@table.upsert_records(records_to_upsert, ['Name'])
+```
+
 A single record or an array of records can be destroyed by passing their ids to the `delete_records` method on a table (max 10 at a time):
 
 ```ruby

@@ -451,6 +451,28 @@
 </li>
 
       
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#upsert_records-instance_method" title="#upsert_records (instance method)">#<strong>upsert_records</strong>(records, fields_to_merge_on)  &#x21d2; Array&lt;Airtable::Record&gt; </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
     </ul>
   
 
@@ -916,17 +938,17 @@
       <pre class="lines">
 
 
-78
-79
-80
-81
-82
-83
-84
-85</pre>
+91
+92
+93
+94
+95
+96
+97
+98</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 78</span>
+      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 91</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_delete_records'>delete_records</span><span class='lparen'>(</span><span class='id identifier rubyid_record_ids'>record_ids</span><span class='rparen'>)</span>
   <span class='id identifier rubyid_params'>params</span> <span class='op'>=</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_record_ids'>record_ids</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_compact'>compact</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>records[]=</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid__1'>_1</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_join'>join</span><span class='lparen'>(</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>&amp;</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span>
@@ -985,17 +1007,17 @@
       <pre class="lines">
 
 
-89
-90
-91
-92
-93
-94
-95
-96</pre>
+102
+103
+104
+105
+106
+107
+108
+109</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 89</span>
+      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 102</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_dump'>dump</span>
   <span class='id identifier rubyid_ids'>ids</span> <span class='op'>=</span> <span class='id identifier rubyid_records'>records</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='symbol'>:id</span><span class='rparen'>)</span>
@@ -1225,10 +1247,10 @@
       <pre class="lines">
 
 
-101</pre>
+114</pre>
     </td>
     <td>
-      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 101</span>
+      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 114</span>
 
 <span class='kw'>def</span> <span class='id identifier rubyid_table_url'>table_url</span> <span class='op'>=</span> <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>/v0/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@base</span><span class='period'>.</span><span class='id identifier rubyid_id'>id</span><span class='embexpr_end'>}</span><span class='tstring_content'>/</span><span class='embexpr_beg'>#{</span><span class='ivar'>@id</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span></pre>
     </td>
@@ -1305,14 +1327,111 @@
 </table>
 </div>
     
+      <div class="method_details ">
+  <h3 class="signature " id="upsert_records-instance_method">
+  
+    #<strong>upsert_records</strong>(records, fields_to_merge_on)  &#x21d2; <tt>Array&lt;<span class='object_link'><a href="Record.html" title="Airtable::Record (class)">Airtable::Record</a></span>&gt;</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+  <div class="note notetag">
+    <strong>Note:</strong>
+    <div class='inline'>
+<p>API maximum of 10 records at a time</p>
+</div>
+  </div>
+
+
+
+  </div>
+</div>
+<div class="tags">
+  <p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>Record</span>
+      
+      
+        <span class='type'>(<tt>Array</tt>)</span>
+      
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>objects to upsert</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Array&lt;<span class='object_link'><a href="Record.html" title="Airtable::Record (class)">Airtable::Record</a></span>&gt;</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+  <p class="tag_title">See Also:</p>
+  <ul class="see">
+    
+      <li><a href="https://airtable.com/developers/web/api/update-multiple-records" target="_parent" title="https://airtable.com/developers/web/api/update-multiple-records">https://airtable.com/developers/web/api/update-multiple-records</a></li>
+    
+  </ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+78
+79
+80
+81
+82
+83
+84
+85</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/airtable/table.rb', line 78</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_upsert_records'>upsert_records</span><span class='lparen'>(</span><span class='id identifier rubyid_records'>records</span><span class='comma'>,</span> <span class='id identifier rubyid_fields_to_merge_on'>fields_to_merge_on</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_response'>response</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_class'>class</span><span class='period'>.</span><span class='id identifier rubyid_patch'>patch</span><span class='lparen'>(</span><span class='id identifier rubyid_table_url'>table_url</span><span class='comma'>,</span>
+                              <span class='label'>body:</span> <span class='lbrace'>{</span> <span class='label'>performUpsert:</span> <span class='lbrace'>{</span> <span class='label'>fieldsToMergeOn:</span> <span class='id identifier rubyid_fields_to_merge_on'>fields_to_merge_on</span> <span class='rbrace'>}</span><span class='comma'>,</span> <span class='label'>records:</span> <span class='const'>Array</span><span class='lparen'>(</span><span class='id identifier rubyid_records'>records</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='op'>|</span><span class='id identifier rubyid_fields'>fields</span><span class='op'>|</span> <span class='lbrace'>{</span> <span class='label'>fields:</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span> <span class='rbrace'>}</span><span class='period'>.</span><span class='id identifier rubyid_to_json'>to_json</span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_parsed_response'>parsed_response</span>
+
+  <span class='id identifier rubyid_check_and_raise_error'>check_and_raise_error</span><span class='lparen'>(</span><span class='id identifier rubyid_response'>response</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_response'>response</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>records</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='period'>.</span><span class='id identifier rubyid_map'>map</span> <span class='lbrace'>{</span> <span class='const'><span class='object_link'><a href="../Airtable.html" title="Airtable (module)">Airtable</a></span></span><span class='op'>::</span><span class='const'><span class='object_link'><a href="Record.html" title="Airtable::Record (class)">Record</a></span></span><span class='period'>.</span><span class='id identifier rubyid_new'><span class='object_link'><a href="Record.html#initialize-instance_method" title="Airtable::Record#initialize (method)">new</a></span></span><span class='lparen'>(</span><span class='ivar'>@token</span><span class='comma'>,</span> <span class='kw'>self</span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>id</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span><span class='comma'>,</span> <span class='id identifier rubyid__1'>_1</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
   </div>
 
 </div>
 
       <div id="footer">
-  Generated on Tue Oct 29 14:51:03 2024 by
+  Generated on Wed Nov 13 14:47:05 2024 by
   <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.37 (ruby-3.3.5).
+  0.9.37 (ruby-3.3.6).
 </div>
 
     </div>

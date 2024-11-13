@@ -71,6 +71,19 @@ class Airtable::Table < Airtable::Resource
     response['records'].map { Airtable::Record.new(@token, self, _1['id'], _1) }
   end
 
+  # @param [Array] Record objects to upsert
+  # @return [Array<Airtable::Record>]
+  # @see https://airtable.com/developers/web/api/update-multiple-records
+  # @note API maximum of 10 records at a time
+  def upsert_records(records, fields_to_merge_on)
+    response = self.class.patch(table_url,
+                                body: { performUpsert: { fieldsToMergeOn: fields_to_merge_on }, records: Array(records).map { |fields| { fields: } } }.to_json).parsed_response
+
+    check_and_raise_error(response)
+
+    response['records'].map { Airtable::Record.new(@token, self, _1['id'], _1) }
+  end
+
   # @param [Array] IDs of records to delete
   # @return [Array] Deleted record ids
   # @see https://airtable.com/developers/web/api/delete-multiple-records
